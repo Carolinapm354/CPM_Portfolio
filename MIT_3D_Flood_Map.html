@@ -146,6 +146,26 @@
 }
 
 
+/* Style for the new container */
+.new-container {
+  display: flex; /* Display its children side by side */
+  justify-content: space-between; /* Space between children */
+}
+
+/* Style for the phone element */
+.phone {
+  flex: 1; /* Allow the phone to expand and take up available space */
+
+}
+
+
+/* Style for the map element (iframe) */
+.map {
+  margin-left: 50px; /* Adjust the left margin as needed */
+  max-width: 100%; /* Ensure the map does not exceed the available space */
+}
+
+
     </style>
     
 </head>
@@ -1067,7 +1087,7 @@
         <img src="Assets\GRAFICAS_Graficas.jpg" alt="Image" style="width: 1550px; height: auto; float: center; margin-right: 1px; margin-left: -6px;">
     </div>
 
-    <h2>Preview of the interactive 3D flood Map</h2>
+    <!-- <h2>Preview of the interactive 3D flood Map</h2> -->
 
 <div id="preview-box">
     <iframe src="https://carolinapm354.github.io/MIT_3D_Flood_Map/" width="100%" height="100%" frameborder="0"></iframe>
@@ -1095,14 +1115,31 @@
     
     By making informed decisions through a user-friendly interface, individuals will take control of their safety. The commitment is not only to enhance understanding of future emergency situations but also to empower everyone with the knowledge required to protect themselves and those around them. The vision is to create a safer, more resilient community by harnessing the potential of technology for the benefit of all. </p>    
    
- <p><b>Mock up</b></p>
+ 
+ <h2>Mock-Up</h2>
 
- <body>
-    <h1>Preview of Another HTML File</h1>
-    <iframe src="MAPA\escaperoute.html" width="800" height="600"></iframe>
+
+ <p><b>Important:</b></p>
+<p>
+This mock-up serves as a preliminary exploration of the tool's practicality and feasibility in bringing my vision to life. It is essential to clarify that it does not provide an accurate representation of real escape routes. The data within the "2070 Storm 100-Year Layer" originates from the collaborative efforts of MIT's dedicated group of scientists. This dataset was compiled to support the MIT Climate Resilience Dashboard, which aims to furnish effective data visualization tools for presenting their findings. The escape routes I have illustrated in this mock-up are solely based on my personal interpretations, taking into account factors like water depth and topographic elevations. However, it is crucial to emphasize that these interpretations lack scientific validation and accuracy. To achieve a comprehensive understanding of flood risk, a more rigorous study would be necessary, encompassing not only the MIT campus but also the broader area of Cambridge. This comprehensive study should include all relevant buildings and potential refuge areas.  </p>
 </body>
 
+
+<div class="new-container">
+    
+    <div class="map">
+      <iframe src="MAPA\escaperoute.html" width="800" height="1000"></iframe>
+    </div>
+    <div class="phone">
+        <img src="Assets\phone.png" alt="Image" style="width: 1000px; height: auto;">
+      </div>
+  </div>
+
+  <p style="font-size: 12px;"><b>Note:</b> Please wait for the frame to load completely. Once it load feel free to interact with the map.</p>
 </body>
+
+
+
 <script>
 
 function openModal(stageId) {

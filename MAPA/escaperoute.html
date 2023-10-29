@@ -58,6 +58,7 @@
   <!-- <div id="lighting-controls">
   </div> -->
   <div id="map-angle"></div>
+  
 
   <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiY3BlcmV6bSIsImEiOiJjbGo0b3lhZjIwM3R2M2treGMwc3Z2NDhoIn0.Py5P82ue0Klm3gJYJsrc2g';
@@ -67,15 +68,28 @@
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/cperezm/clinodmuj01dm01p692cp3xh7/draft',
-      zoom: 15.334314053840899,
-      // zoom: 15.334314053840895,
-      center: [-71.09349729089871, 42.360765238358425],
-      // center: [-71.09280320649185, 42.35965244275371],
-      // center: [0, 0],
-      pitch: -2.5,
-      // pitch: 66.0005904069893,
-      antialias: true
+      center: [-71.09527804250986, 42.3593694293632],
+      zoom: 2
+      // zoom:  14.559391241544095,
+      // // zoom: 15.334314053840895,
+      // center: [-71.09527804250986, 42.3593694293632],
+      // // center: [-71.09280320649185, 42.35965244275371],
+      // // center: [0, 0],
+      // pitch: 0,
+      // // pitch: 66.0005904069893,
+      // antialias: true
     });
+
+    // Add a zoom-in animation
+map.on('load', function () {
+  setTimeout(function () {
+    map.flyTo({
+      center: [-71.09527804250986, 42.3593694293632], // MIT's coordinates
+      zoom: 14.559391241544095, // Zoom level to MIT campus
+      speed: 0.7, // Animation speed
+    });
+  }, 2000); // Delay the zoom-in animation (in milliseconds)
+});
    
 
     // Add the GeoJSON source and layer here
@@ -150,42 +164,6 @@ map.on('load', function () {
   });
 });
 
-// map.on('load', function () {
-//     map.addSource('new-house', {
-//       type: 'geojson',
-//       data: 'newhouse.geojson' // Replace with the actual path to your GeoJSON file
-//     });
-
-//     map.addLayer({
-//       id: 'new-house',
-//       type: 'circle',
-//       source: 'new-house',
-//       paint: {
-//         'circle-radius': 10,
-//         'circle-color': '#FF0000' // Use the color code you want
-//       }
-//     });
-//   });
-
-//   map.on('style.load', () => {
-//     // Add the GeoJSON source
-//     map.addSource('newhouse-source', {
-//       type: 'geojson',
-//       data: 'newhouseescape.geojson' // Replace with the correct path to your GeoJSON file
-//     });
-
-//     // Add the layer
-//     map.addLayer({
-//       id: 'newhouse-layer',
-//       type: 'line',
-//       source: 'newhouse-source',
-//       paint: {
-//         'line-color': 'red', // You can change the color here
-//         'line-width': 2
-//       }
-//     });
-//   });
-
 map.on('load', function () {
   // Add the "New House" circle layer
   map.addLayer({
@@ -193,10 +171,10 @@ map.on('load', function () {
     type: 'circle',
     source: {
       type: 'geojson',
-      data: 'newhouse.geojson' // Update with your circle data
+      data: 'newhouse.geojson' // Update with your "New House" circle data
     },
     paint: {
-      'circle-radius': 10,
+      'circle-radius': 5,
       'circle-color': 'red' // Customize the circle appearance
     }
   });
@@ -207,32 +185,869 @@ map.on('load', function () {
     type: 'line',
     source: {
       type: 'geojson',
-      data: 'newhouseescape.geojson' // Update with the LineString data
+      data: 'newhouseescape.geojson' // Update with your "New House" LineString data
     },
     layout: {
       'visibility': 'none' // Initially hide the layer
     },
     paint: {
-        'line-color':  ['get', 'color'], // You can change the color here
-        'line-width': 3
-      }
+      'line-color': ['get', 'color'], // You can change the color here
+      'line-width': 3
+    }
+  });
+
+  // Add the "NW86.geojson" circle layer
+  map.addLayer({
+    id: 'NW86-circle',
+    type: 'circle',
+    source: {
+      type: 'geojson',
+      data: 'NW86.geojson' // Replace with your "NW86" circle data
+    },
+    paint: {
+      'circle-radius': 5,
+      'circle-color': 'red' // Customize the circle appearance
+    }
+  });
+
+  // Add the "NW86route.geojson" layer and initially hide it
+  map.addLayer({
+    id: 'NW86-route',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: 'NW86route.geojson' // Replace with your "NW86" LineString data
+    },
+    layout: {
+      'visibility': 'none' // Initially hide the layer
+    },
+    paint: {
+      'line-color': 'red', // You can change the route color here
+      'line-width': 3
+    }
+  });
+
+  // Add the "Ashdown.geojson" circle layer
+  map.addLayer({
+    id: 'Ashdown-circle',
+    type: 'circle',
+    source: {
+      type: 'geojson',
+      data: 'Ashdown.geojson' // Replace with your "Ashdown" circle data
+    },
+    paint: {
+      'circle-radius': 5,
+      'circle-color': 'red' // Customize the circle appearance
+}
 });
+    
+  // Add the "Ashdownroute.geojson" layer and initially hide it
+  map.addLayer({
+    id: 'Ashdown-route',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: 'Ashdownroute.geojson' // Replace with your "Ashdownroute" LineString data
+    },
+    layout: {
+      'visibility': 'none' // Initially hide the layer
+    },
+    paint: {
+      'line-color': 'red', // You can change the route color here
+      'line-width': 3
+ } });
+
+  // Add the "Plasma.geojson" circle layer
+  map.addLayer({
+    id: 'Plasma-circle',
+    type: 'circle',
+    source: {
+      type: 'geojson',
+      data: 'Plasma.geojson' // Replace with your "Plasma" circle data
+    },
+    paint: {
+      'circle-radius': 5,
+      'circle-color': 'red' // Customize the circle appearance
+}
+});
+
+  // Add the "Plasmaroute.geojson" layer and initially hide it
+  map.addLayer({
+    id: 'Plasma-route',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: 'Plasmaroute.geojson' // Replace with your "Plasmaroute" LineString data
+    },
+    layout: {
+      'visibility': 'none' // Initially hide the layer
+    },
+    paint: {
+      'line-color': 'red', // You can change the route color here
+      'line-width': 3
+    }
+    });
+
+      // Add the "BurtonConner.geojson" circle layer
+  map.addLayer({
+    id: 'Burton-Conner-circle',
+    type: 'circle',
+    source: {
+      type: 'geojson',
+      data: 'BurtonConner.geojson' // Replace with your "Plasma" circle data
+    },
+    paint: {
+      'circle-radius': 5,
+      'circle-color': 'red' // Customize the circle appearance
+}
+});
+
+  // Add the "BurtonConnerroute.geojson" layer and initially hide it
+  map.addLayer({
+    id: 'Burton-Conner-route',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: 'BurtonConnerroute.geojson' // Replace with your "Plasmaroute" LineString data
+    },
+    layout: {
+      'visibility': 'none' // Initially hide the layer
+    },
+    paint: {
+      'line-color': ['get', 'color'], // You can change the route color here
+      'line-width': 3
+    }
+    });
+
+      // Add the "BurtonConner.geojson" circle layer
+  map.addLayer({
+    id: 'Baker-circle',
+    type: 'circle',
+    source: {
+      type: 'geojson',
+      data: 'Baker.geojson' // Replace with your "Plasma" circle data
+    },
+    paint: {
+      'circle-radius': 5,
+      'circle-color': 'red' // Customize the circle appearance
+}
+});
+
+  // Add the "BurtonConnerroute.geojson" layer and initially hide it
+  map.addLayer({
+    id: 'Baker-route',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: 'Bakerroute.geojson' // Replace with your "Plasmaroute" LineString data
+    },
+    layout: {
+      'visibility': 'none' // Initially hide the layer
+    },
+    paint: {
+      'line-color': ['get', 'color'], // You can change the route color here
+      'line-width': 3
+    }
+    });
+
+
+      // Add the "BurtonConner.geojson" circle layer
+      map.addLayer({
+    id: 'Building-10-circle',
+    type: 'circle',
+    source: {
+      type: 'geojson',
+      data: 'Building10.geojson' // Replace with your "Plasma" circle data
+    },
+    paint: {
+      'circle-radius': 5,
+      'circle-color': 'red' // Customize the circle appearance
+}
+});
+
+  // Add the "BurtonConnerroute.geojson" layer and initially hide it
+  map.addLayer({
+    id: 'Building-10-route',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: 'Building10route.geojson' // Replace with your "Plasmaroute" LineString data
+    },
+    layout: {
+      'visibility': 'none' // Initially hide the layer
+    },
+    paint: {
+      'line-color': ['get', 'color'], // You can change the route color here
+      'line-width': 3
+    }
+    });
+
+      // Add the "BurtonConner.geojson" circle layer
+      map.addLayer({
+    id: 'Maseeh-circle',
+    type: 'circle',
+    source: {
+      type: 'geojson',
+      data: 'Maseeh.geojson' // Replace with your "Plasma" circle data
+    },
+    paint: {
+      'circle-radius': 5,
+      'circle-color': 'red' // Customize the circle appearance
+}
+});
+
+  // Add the "BurtonConnerroute.geojson" layer and initially hide it
+  map.addLayer({
+    id: 'Maseeh-route',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: 'Maseehroute.geojson' // Replace with your "Plasmaroute" LineString data
+    },
+    layout: {
+      'visibility': 'none' // Initially hide the layer
+    },
+    paint: {
+      'line-color': ['get', 'color'], // You can change the route color here
+      'line-width': 3
+    }
+    });
+
+     // Add the "BurtonConner.geojson" circle layer
+     map.addLayer({
+    id: 'mccormick-circle',
+    type: 'circle',
+    source: {
+      type: 'geojson',
+      data: 'mccormick.geojson' // Replace with your "Plasma" circle data
+    },
+    paint: {
+      'circle-radius': 5,
+      'circle-color': 'red' // Customize the circle appearance
+}
+});
+
+  // Add the "BurtonConnerroute.geojson" layer and initially hide it
+  map.addLayer({
+    id: 'mccormick-route',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: 'mccormickroute.geojson' // Replace with your "Plasmaroute" LineString data
+    },
+    layout: {
+      'visibility': 'none' // Initially hide the layer
+    },
+    paint: {
+      'line-color': ['get', 'color'], // You can change the route color here
+      'line-width': 3
+    }
+    });
+
+          // Add the "BurtonConner.geojson" circle layer
+          map.addLayer({
+    id: 'Building-50-circle',
+    type: 'circle',
+    source: {
+      type: 'geojson',
+      data: 'Building50.geojson' // Replace with your "Plasma" circle data
+    },
+    paint: {
+      'circle-radius': 5,
+      'circle-color': 'red' // Customize the circle appearance
+}
+});
+
+  // Add the "BurtonConnerroute.geojson" layer and initially hide it
+  map.addLayer({
+    id: 'Building-50-route',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: 'Building50route.geojson' // Replace with your "Plasmaroute" LineString data
+    },
+    layout: {
+      'visibility': 'none' // Initially hide the layer
+    },
+    paint: {
+      'line-color': ['get', 'color'], // You can change the route color here
+      'line-width': 3
+    }
+    });
+
+
+    
+          // Add the "BurtonConner.geojson" circle layer
+          map.addLayer({
+    id: 'media-lab-circle',
+    type: 'circle',
+    source: {
+      type: 'geojson',
+      data: 'medialab.geojson' // Replace with your "Plasma" circle data
+    },
+    paint: {
+      'circle-radius': 5,
+      'circle-color': 'red' // Customize the circle appearance
+}
+});
+
+  // Add the "BurtonConnerroute.geojson" layer and initially hide it
+  map.addLayer({
+    id: 'media-lab-route',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: 'medialabroute.geojson' // Replace with your "Plasmaroute" LineString data
+    },
+    layout: {
+      'visibility': 'none' // Initially hide the layer
+    },
+    paint: {
+      'line-color': ['get', 'color'], // You can change the route color here
+      'line-width': 3
+    }
+    });
+
+     // Add the "BurtonConner.geojson" circle layer
+     map.addLayer({
+    id: 'stata-circle',
+    type: 'circle',
+    source: {
+      type: 'geojson',
+      data: 'stata.geojson' // Replace with your "Plasma" circle data
+    },
+    paint: {
+      'circle-radius': 5,
+      'circle-color': 'red' // Customize the circle appearance
+}
+});
+
+  // Add the "BurtonConnerroute.geojson" layer and initially hide it
+  map.addLayer({
+    id: 'stata-route',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: 'stataroute.geojson' // Replace with your "Plasmaroute" LineString data
+    },
+    layout: {
+      'visibility': 'none' // Initially hide the layer
+    },
+    paint: {
+      'line-color': ['get', 'color'], // You can change the route color here
+      'line-width': 3
+    }
+    });
+
+       // Add the "BurtonConner.geojson" circle layer
+       map.addLayer({
+    id: 'Tang-circle',
+    type: 'circle',
+    source: {
+      type: 'geojson',
+      data: 'Tang.geojson' // Replace with your "Plasma" circle data
+    },
+    paint: {
+      'circle-radius': 5,
+      'circle-color': 'red' // Customize the circle appearance
+}
+});
+
+  // Add the "BurtonConnerroute.geojson" layer and initially hide it
+  map.addLayer({
+    id: 'Tang-route',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: 'Tangroute.geojson' // Replace with your "Plasmaroute" LineString data
+    },
+    layout: {
+      'visibility': 'none' // Initially hide the layer
+    },
+    paint: {
+      'line-color': ['get', 'color'], // You can change the route color here
+      'line-width': 3
+    }
+    });
+
+       // Add the "BurtonConner.geojson" circle layer
+       map.addLayer({
+    id: 'sloan-circle',
+    type: 'circle',
+    source: {
+      type: 'geojson',
+      data: 'sloan.geojson' // Replace with your "Plasma" circle data
+    },
+    paint: {
+      'circle-radius': 5,
+      'circle-color': 'red' // Customize the circle appearance
+}
+});
+
+  // Add the "BurtonConnerroute.geojson" layer and initially hide it
+  map.addLayer({
+    id: 'sloan-route',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: 'sloanroute.geojson' // Replace with your "Plasmaroute" LineString data
+    },
+    layout: {
+      'visibility': 'none' // Initially hide the layer
+    },
+    paint: {
+      'line-color': ['get', 'color'], // You can change the route color here
+      'line-width': 3
+    }
+    });
+
+
+    // Add a click event listener to the "BurtonConner.geojson" circle layer
+map.on('click', 'sloan-circle', function () {
+    // Hide the previously clicked route layers
+    map.setLayoutProperty('NW86-route', 'visibility', 'none');
+    map.setLayoutProperty('Ashdown-route', 'visibility', 'none');
+    map.setLayoutProperty('Plasma-route', 'visibility', 'none');
+    map.setLayoutProperty('new-house-escape', 'visibility', 'none');
+    map.setLayoutProperty('Burton-Conner-route', 'visibility', 'none');
+    map.setLayoutProperty('Baker-route', 'visibility', 'none');
+    map.setLayoutProperty('Maseeh-route', 'visibility', 'none');
+    map.setLayoutProperty('mccormick-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-10-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-50-route', 'visibility', 'none');
+    map.setLayoutProperty('media-lab-route', 'visibility', 'none');
+    map.setLayoutProperty('stata-route', 'visibility', 'none');
+    map.setLayoutProperty('Tang-route', 'visibility', 'none');
+
+    // Toggle the visibility of the "Burton-Conner-route.geojson" layer
+    const currentVisibility = map.getLayoutProperty('sloan-route', 'visibility');
+    const newVisibility = currentVisibility === 'none' ? 'visible' : 'none';
+    map.setLayoutProperty('sloan-route', 'visibility', newVisibility);
+  });
+
+
+// Add a click event listener to the "BurtonConner.geojson" circle layer
+map.on('click', 'Tang-circle', function () {
+    // Hide the previously clicked route layers
+    map.setLayoutProperty('NW86-route', 'visibility', 'none');
+    map.setLayoutProperty('Ashdown-route', 'visibility', 'none');
+    map.setLayoutProperty('Plasma-route', 'visibility', 'none');
+    map.setLayoutProperty('new-house-escape', 'visibility', 'none');
+    map.setLayoutProperty('Burton-Conner-route', 'visibility', 'none');
+    map.setLayoutProperty('Baker-route', 'visibility', 'none');
+    map.setLayoutProperty('Maseeh-route', 'visibility', 'none');
+    map.setLayoutProperty('mccormick-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-10-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-50-route', 'visibility', 'none');
+    map.setLayoutProperty('media-lab-route', 'visibility', 'none');
+    map.setLayoutProperty('stata-route', 'visibility', 'none');
+    map.setLayoutProperty('sloan-route', 'visibility', 'none');
+
+    // Toggle the visibility of the "Burton-Conner-route.geojson" layer
+    const currentVisibility = map.getLayoutProperty('Tang-route', 'visibility');
+    const newVisibility = currentVisibility === 'none' ? 'visible' : 'none';
+    map.setLayoutProperty('Tang-route', 'visibility', newVisibility);
+  });
+
+
+// Add a click event listener to the "BurtonConner.geojson" circle layer
+map.on('click', 'stata-circle', function () {
+    // Hide the previously clicked route layers
+    map.setLayoutProperty('NW86-route', 'visibility', 'none');
+    map.setLayoutProperty('Ashdown-route', 'visibility', 'none');
+    map.setLayoutProperty('Plasma-route', 'visibility', 'none');
+    map.setLayoutProperty('new-house-escape', 'visibility', 'none');
+    map.setLayoutProperty('Burton-Conner-route', 'visibility', 'none');
+    map.setLayoutProperty('Baker-route', 'visibility', 'none');
+    map.setLayoutProperty('Maseeh-route', 'visibility', 'none');
+    map.setLayoutProperty('mccormick-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-10-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-50-route', 'visibility', 'none');
+    map.setLayoutProperty('media-lab-route', 'visibility', 'none');
+    map.setLayoutProperty('Tang-route', 'visibility', 'none');
+    map.setLayoutProperty('sloan-route', 'visibility', 'none');
+    
+
+    // Toggle the visibility of the "Burton-Conner-route.geojson" layer
+    const currentVisibility = map.getLayoutProperty('stata-route', 'visibility');
+    const newVisibility = currentVisibility === 'none' ? 'visible' : 'none';
+    map.setLayoutProperty('stata-route', 'visibility', newVisibility);
+  });
+
+
+    // Add a click event listener to the "BurtonConner.geojson" circle layer
+    map.on('click', 'media-lab-circle', function () {
+    // Hide the previously clicked route layers
+    map.setLayoutProperty('NW86-route', 'visibility', 'none');
+    map.setLayoutProperty('Ashdown-route', 'visibility', 'none');
+    map.setLayoutProperty('Plasma-route', 'visibility', 'none');
+    map.setLayoutProperty('new-house-escape', 'visibility', 'none');
+    map.setLayoutProperty('Burton-Conner-route', 'visibility', 'none');
+    map.setLayoutProperty('Baker-route', 'visibility', 'none');
+    map.setLayoutProperty('Maseeh-route', 'visibility', 'none');
+    map.setLayoutProperty('mccormick-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-10-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-50-route', 'visibility', 'none');
+    map.setLayoutProperty('stata-route', 'visibility', 'none');
+    map.setLayoutProperty('Tang-route', 'visibility', 'none');
+    map.setLayoutProperty('sloan-route', 'visibility', 'none');
+
+    // Toggle the visibility of the "Burton-Conner-route.geojson" layer
+    const currentVisibility = map.getLayoutProperty('media-lab-route', 'visibility');
+    const newVisibility = currentVisibility === 'none' ? 'visible' : 'none';
+    map.setLayoutProperty('media-lab-route', 'visibility', newVisibility);
+  });
+
+
+      // Add a click event listener to the "BurtonConner.geojson" circle layer
+      map.on('click', 'Building-50-circle', function () {
+    // Hide the previously clicked route layers
+    map.setLayoutProperty('NW86-route', 'visibility', 'none');
+    map.setLayoutProperty('Ashdown-route', 'visibility', 'none');
+    map.setLayoutProperty('Plasma-route', 'visibility', 'none');
+    map.setLayoutProperty('new-house-escape', 'visibility', 'none');
+    map.setLayoutProperty('Burton-Conner-route', 'visibility', 'none');
+    map.setLayoutProperty('Baker-route', 'visibility', 'none');
+    map.setLayoutProperty('Maseeh-route', 'visibility', 'none');
+    map.setLayoutProperty('mccormick-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-10-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-50-route', 'visibility', 'none');
+    map.setLayoutProperty('media-lab-route', 'visibility', 'none');
+    map.setLayoutProperty('stata-route', 'visibility', 'none');
+    map.setLayoutProperty('Tang-route', 'visibility', 'none');
+    map.setLayoutProperty('sloan-route', 'visibility', 'none');
+
+    // Toggle the visibility of the "Burton-Conner-route.geojson" layer
+    const currentVisibility = map.getLayoutProperty('Building-50-route', 'visibility');
+    const newVisibility = currentVisibility === 'none' ? 'visible' : 'none';
+    map.setLayoutProperty('Building-50-route', 'visibility', newVisibility);
+  });
+
+
+    // Add a click event listener to the "BurtonConner.geojson" circle layer
+  map.on('click', 'mccormick-circle', function () {
+    // Hide the previously clicked route layers
+    map.setLayoutProperty('NW86-route', 'visibility', 'none');
+    map.setLayoutProperty('Ashdown-route', 'visibility', 'none');
+    map.setLayoutProperty('Plasma-route', 'visibility', 'none');
+    map.setLayoutProperty('new-house-escape', 'visibility', 'none');
+    map.setLayoutProperty('Burton-Conner-route', 'visibility', 'none');
+    map.setLayoutProperty('Baker-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-10-route', 'visibility', 'none');
+    map.setLayoutProperty('Maseeh-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-50-route', 'visibility', 'none');
+    map.setLayoutProperty('media-lab-route', 'visibility', 'none');
+    map.setLayoutProperty('stata-route', 'visibility', 'none');
+    map.setLayoutProperty('Tang-route', 'visibility', 'none');
+    map.setLayoutProperty('sloan-route', 'visibility', 'none');
+
+    // Toggle the visibility of the "Burton-Conner-route.geojson" layer
+    const currentVisibility = map.getLayoutProperty('mccormick-route', 'visibility');
+    const newVisibility = currentVisibility === 'none' ? 'visible' : 'none';
+    map.setLayoutProperty('mccormick-route', 'visibility', newVisibility);
+  });
+    
+
+     // Add a click event listener to the "BurtonConner.geojson" circle layer
+  map.on('click', 'Maseeh-circle', function () {
+    // Hide the previously clicked route layers
+    map.setLayoutProperty('NW86-route', 'visibility', 'none');
+    map.setLayoutProperty('Ashdown-route', 'visibility', 'none');
+    map.setLayoutProperty('Plasma-route', 'visibility', 'none');
+    map.setLayoutProperty('new-house-escape', 'visibility', 'none');
+    map.setLayoutProperty('Burton-Conner-route', 'visibility', 'none');
+    map.setLayoutProperty('Baker-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-10-route', 'visibility', 'none');
+    map.setLayoutProperty('mccormick-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-50-route', 'visibility', 'none');
+    map.setLayoutProperty('media-lab-route', 'visibility', 'none');
+    map.setLayoutProperty('stata-route', 'visibility', 'none');
+    map.setLayoutProperty('Tang-route', 'visibility', 'none');
+    map.setLayoutProperty('sloan-route', 'visibility', 'none');
+
+    // Toggle the visibility of the "Burton-Conner-route.geojson" layer
+    const currentVisibility = map.getLayoutProperty('Maseeh-route', 'visibility');
+    const newVisibility = currentVisibility === 'none' ? 'visible' : 'none';
+    map.setLayoutProperty('Maseeh-route', 'visibility', newVisibility);
+  });
+
+      // Add a click event listener to the "BurtonConner.geojson" circle layer
+  map.on('click', 'Building-10-circle', function () {
+    // Hide the previously clicked route layers
+    map.setLayoutProperty('NW86-route', 'visibility', 'none');
+    map.setLayoutProperty('Ashdown-route', 'visibility', 'none');
+    map.setLayoutProperty('Plasma-route', 'visibility', 'none');
+    map.setLayoutProperty('new-house-escape', 'visibility', 'none');
+    map.setLayoutProperty('Burton-Conner-route', 'visibility', 'none');
+    map.setLayoutProperty('Baker-route', 'visibility', 'none');
+    map.setLayoutProperty('Maseeh-route', 'visibility', 'none');
+    map.setLayoutProperty('mccormick-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-50-route', 'visibility', 'none');
+    map.setLayoutProperty('media-lab-route', 'visibility', 'none');
+    map.setLayoutProperty('stata-route', 'visibility', 'none');
+    map.setLayoutProperty('Tang-route', 'visibility', 'none');
+    map.setLayoutProperty('sloan-route', 'visibility', 'none');
+
+    // Toggle the visibility of the "Burton-Conner-route.geojson" layer
+    const currentVisibility = map.getLayoutProperty('Building-10-route', 'visibility');
+    const newVisibility = currentVisibility === 'none' ? 'visible' : 'none';
+    map.setLayoutProperty('Building-10-route', 'visibility', newVisibility);
+  });
+
+    // Add a click event listener to the "BurtonConner.geojson" circle layer
+  map.on('click', 'Baker-circle', function () {
+    // Hide the previously clicked route layers
+    map.setLayoutProperty('NW86-route', 'visibility', 'none');
+    map.setLayoutProperty('Ashdown-route', 'visibility', 'none');
+    map.setLayoutProperty('Plasma-route', 'visibility', 'none');
+    map.setLayoutProperty('new-house-escape', 'visibility', 'none');
+    map.setLayoutProperty('Burton-Conner-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-10-route', 'visibility', 'none');
+    map.setLayoutProperty('Maseeh-route', 'visibility', 'none');
+    map.setLayoutProperty('mccormick-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-50-route', 'visibility', 'none');
+    map.setLayoutProperty('media-lab-route', 'visibility', 'none');
+    map.setLayoutProperty('stata-route', 'visibility', 'none');
+    map.setLayoutProperty('Tang-route', 'visibility', 'none');
+    map.setLayoutProperty('sloan-route', 'visibility', 'none');
+
+    // Toggle the visibility of the "Burton-Conner-route.geojson" layer
+    const currentVisibility = map.getLayoutProperty('Baker-route', 'visibility');
+    const newVisibility = currentVisibility === 'none' ? 'visible' : 'none';
+    map.setLayoutProperty('Baker-route', 'visibility', newVisibility);
+  });
+
+  // Add a click event listener to the "BurtonConner.geojson" circle layer
+  map.on('click', 'Burton-Conner-circle', function () {
+    // Hide the previously clicked route layers
+    map.setLayoutProperty('NW86-route', 'visibility', 'none');
+    map.setLayoutProperty('Ashdown-route', 'visibility', 'none');
+    map.setLayoutProperty('Plasma-route', 'visibility', 'none');
+    map.setLayoutProperty('new-house-escape', 'visibility', 'none');
+    map.setLayoutProperty('Baker-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-10-route', 'visibility', 'none');
+    map.setLayoutProperty('Maseeh-route', 'visibility', 'none');
+    map.setLayoutProperty('mccormick-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-50-route', 'visibility', 'none');
+    map.setLayoutProperty('media-lab-route', 'visibility', 'none');
+    map.setLayoutProperty('stata-route', 'visibility', 'none');
+    map.setLayoutProperty('Tang-route', 'visibility', 'none');
+    map.setLayoutProperty('sloan-route', 'visibility', 'none');
+
+    // Toggle the visibility of the "Burton-Conner-route.geojson" layer
+    const currentVisibility = map.getLayoutProperty('Burton-Conner-route', 'visibility');
+    const newVisibility = currentVisibility === 'none' ? 'visible' : 'none';
+    map.setLayoutProperty('Burton-Conner-route', 'visibility', newVisibility);
+  });
+ 
+    // Add a click event listener to the "Plasma.geojson" circle layer
+  map.on('click', 'Plasma-circle', function () {
+    // Hide the previously clicked route layers
+    map.setLayoutProperty('NW86-route', 'visibility', 'none');
+    map.setLayoutProperty('Ashdown-route', 'visibility', 'none');
+    map.setLayoutProperty('new-house-escape', 'visibility', 'none');
+    map.setLayoutProperty('Burton-Conner-route', 'visibility', 'none');
+    map.setLayoutProperty('Baker-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-10-route', 'visibility', 'none');
+    map.setLayoutProperty('Maseeh-route', 'visibility', 'none');
+    map.setLayoutProperty('mccormick-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-50-route', 'visibility', 'none');
+    map.setLayoutProperty('media-lab-route', 'visibility', 'none');
+    map.setLayoutProperty('stata-route', 'visibility', 'none');
+    map.setLayoutProperty('Tang-route', 'visibility', 'none');
+    map.setLayoutProperty('sloan-route', 'visibility', 'none');
+
+
+    // Toggle the visibility of the "Plasma-route.geojson" layer
+    const currentVisibility = map.getLayoutProperty('Plasma-route', 'visibility');
+    const newVisibility = currentVisibility === 'none' ? 'visible' : 'none';
+    map.setLayoutProperty('Plasma-route', 'visibility', newVisibility);
+  });
 
   // Add a click event listener to the "New House" circle layer
   map.on('click', 'new-house-circle', function () {
-    // Toggle the visibility of the "New house Outside MIT Campus" layer
+    // Hide the previously clicked route layers
+    map.setLayoutProperty('NW86-route', 'visibility', 'none');
+    map.setLayoutProperty('Ashdown-route', 'visibility', 'none');
+    map.setLayoutProperty('Plasma-route', 'visibility', 'none');
+    map.setLayoutProperty('Burton-Conner-route', 'visibility', 'none');
+    map.setLayoutProperty('Baker-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-10-route', 'visibility', 'none');
+    map.setLayoutProperty('Maseeh-route', 'visibility', 'none');
+    map.setLayoutProperty('mccormick-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-50-route', 'visibility', 'none');
+    map.setLayoutProperty('media-lab-route', 'visibility', 'none');
+    map.setLayoutProperty('stata-route', 'visibility', 'none');
+    map.setLayoutProperty('Tang-route', 'visibility', 'none');
+    map.setLayoutProperty('sloan-route', 'visibility', 'none');
+
+    // Toggle the visibility of the "new-house-escape" layer
     const currentVisibility = map.getLayoutProperty('new-house-escape', 'visibility');
     const newVisibility = currentVisibility === 'none' ? 'visible' : 'none';
     map.setLayoutProperty('new-house-escape', 'visibility', newVisibility);
   });
 
-  // Change the cursor to a pointer when hovering over the "New House" circle
+  // Add a click event listener to the "NW86.geojson" circle layer
+  map.on('click', 'NW86-circle', function () {
+    // Hide the previously clicked route layers
+    map.setLayoutProperty('new-house-escape', 'visibility', 'none');
+    map.setLayoutProperty('Ashdown-route', 'visibility', 'none');
+    map.setLayoutProperty('Plasma-route', 'visibility', 'none');
+    map.setLayoutProperty('Burton-Conner-route', 'visibility', 'none');
+    map.setLayoutProperty('Baker-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-10-route', 'visibility', 'none');
+    map.setLayoutProperty('Maseeh-route', 'visibility', 'none');
+    map.setLayoutProperty('mccormick-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-50-route', 'visibility', 'none');
+    map.setLayoutProperty('media-lab-route', 'visibility', 'none');
+    map.setLayoutProperty('stata-route', 'visibility', 'none');
+    map.setLayoutProperty('Tang-route', 'visibility', 'none');
+    map.setLayoutProperty('sloan-route', 'visibility', 'none');
+
+    // Toggle the visibility of the "NW86route.geojson" layer
+    const currentVisibility = map.getLayoutProperty('NW86-route', 'visibility');
+    const newVisibility = currentVisibility === 'none' ? 'visible' : 'none';
+    map.setLayoutProperty('NW86-route', 'visibility', newVisibility);
+  });
+
+// Add a click event listener to the "Ashdown.geojson" circle layer
+map.on('click', 'Ashdown-circle', function () {
+    // Hide the previously clicked route layers
+    map.setLayoutProperty('new-house-escape', 'visibility', 'none');
+    map.setLayoutProperty('NW86-route', 'visibility', 'none');
+    map.setLayoutProperty('Plasma-route', 'visibility', 'none');
+    map.setLayoutProperty('Burton-Conner-route', 'visibility', 'none');
+    map.setLayoutProperty('Baker-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-10-route', 'visibility', 'none');
+    map.setLayoutProperty('Maseeh-route', 'visibility', 'none');
+    map.setLayoutProperty('mccormick-route', 'visibility', 'none');
+    map.setLayoutProperty('Building-50-route', 'visibility', 'none');
+    map.setLayoutProperty('media-lab-route', 'visibility', 'none');
+    map.setLayoutProperty('stata-route', 'visibility', 'none');
+    map.setLayoutProperty('Tang-route', 'visibility', 'none');
+    map.setLayoutProperty('sloan-route', 'visibility', 'none');
+
+    // Toggle the visibility of the "Ashdownroute.geojson" layer
+    const currentVisibility = map.getLayoutProperty('Ashdown-route', 'visibility');
+    const newVisibility = currentVisibility === 'none' ? 'visible' : 'none';
+    map.setLayoutProperty('Ashdown-route', 'visibility', newVisibility);
+  });
+
+
+  // Change the cursor to a pointer when hovering over the circles
   map.on('mouseenter', 'new-house-circle', function () {
     map.getCanvas().style.cursor = 'pointer';
   });
 
-  // Change the cursor back to the default when not hovering over the circle
+  map.on('mouseenter', 'NW86-circle', function () {
+    map.getCanvas().style.cursor = 'pointer';
+  });
+
+  map.on('mouseenter', 'Ashdown-circle', function () {
+    map.getCanvas().style.cursor = 'pointer';
+  });
+
+  map.on('mouseenter', 'Plasma-circle', function () {
+    map.getCanvas().style.cursor = 'pointer';
+  });
+
+  map.on('mouseenter', 'Burton-Conner-circle', function () {
+    map.getCanvas().style.cursor = 'pointer';
+  });
+
+  map.on('mouseenter', 'Baker-circle', function () {
+    map.getCanvas().style.cursor = 'pointer';
+  });
+
+  map.on('mouseenter', 'Building-10-circle', function () {
+    map.getCanvas().style.cursor = 'pointer';
+  });
+
+  map.on('mouseenter', 'Maseeh-circle', function () {
+    map.getCanvas().style.cursor = 'pointer';
+  });
+
+  map.on('mouseenter', 'mccormick-circle', function () {
+    map.getCanvas().style.cursor = 'pointer';
+  });
+
+  map.on('mouseenter', 'Building-50-circle', function () {
+    map.getCanvas().style.cursor = 'pointer';
+  });
+
+  map.on('mouseenter', 'media-lab-circle', function () {
+    map.getCanvas().style.cursor = 'pointer';
+  });
+
+  map.on('mouseenter', 'stata-circle', function () {
+    map.getCanvas().style.cursor = 'pointer';
+  });
+
+  map.on('mouseenter', 'Tang-circle', function () {
+    map.getCanvas().style.cursor = 'pointer';
+  });
+
+  map.on('mouseenter', 'sloan-circle', function () {
+    map.getCanvas().style.cursor = 'pointer';
+  });
+
+
+
+  // Change the cursor back to the default when not hovering over the circles
   map.on('mouseleave', 'new-house-circle', function () {
+    map.getCanvas().style.cursor = '';
+  });
+
+  map.on('mouseleave', 'NW86-circle', function () {
+    map.getCanvas().style.cursor = '';
+  });
+
+  map.on('mouseleave', 'Ashdown-circle', function () {
+    map.getCanvas().style.cursor = '';
+  });
+
+  map.on('mouseleave', 'Plasma-circle', function () {
+    map.getCanvas().style.cursor = '';
+  });
+
+  map.on('mouseleave', 'Burton-Conner-circle', function () {
+    map.getCanvas().style.cursor = '';
+  });
+
+  map.on('mouseleave', 'Baker-circle', function () {
+    map.getCanvas().style.cursor = '';
+  });
+
+  map.on('mouseleave', 'Building-10-circle', function () {
+    map.getCanvas().style.cursor = '';
+  });
+
+  map.on('mouseleave', 'Maseeh-circle', function () {
+    map.getCanvas().style.cursor = '';
+  });
+
+  map.on('mouseleave', 'mccormick-circle', function () {
+    map.getCanvas().style.cursor = '';
+  });
+
+  map.on('mouseleave', 'Building-50-circle', function () {
+    map.getCanvas().style.cursor = '';
+  });
+
+  map.on('mouseleave', 'media-lab-circle', function () {
+    map.getCanvas().style.cursor = '';
+  });
+
+  map.on('mouseleave', 'stata-circle', function () {
+    map.getCanvas().style.cursor = '';
+  });
+
+  
+  map.on('mouseleave', 'Tang-circle', function () {
+    map.getCanvas().style.cursor = '';
+  });
+
+  map.on('mouseleave', 'sloan-circle', function () {
     map.getCanvas().style.cursor = '';
   });
 });
@@ -387,71 +1202,71 @@ map.on('load', function () {
 
 
 
-    map.on('style.load', function () {
-      map.on('click', function (e) {
-        var description = null;
+    // map.on('style.load', function () {
+    //   map.on('click', function (e) {
+    //     var description = null;
 
-        var coordinates = e.lngLat;
-        var latitude = coordinates.lat;
-        var longitude = coordinates.lng;
-        var scenes = model1.scenes[0].children[0].children;
+    //     var coordinates = e.lngLat;
+    //     var latitude = coordinates.lat;
+    //     var longitude = coordinates.lng;
+    //     var scenes = model1.scenes[0].children[0].children;
 
-        var closestDistance = Number.MAX_VALUE;
-        var closestLatitude = 0;
-        var closestLongitude = 0;
+    //     var closestDistance = Number.MAX_VALUE;
+    //     var closestLatitude = 0;
+    //     var closestLongitude = 0;
 
-        // Iterate over the 'children' array and perform operations on each element.
-        scenes.forEach(function (child, index) {
-          // 'child' represents each element in the 'children' array.
-          // Here you can perform operations on each child, if needed.
-          var ud = child.userData;
-          var Center_Lat = ud.Center_Lat;
-          var Center_Lon = ud.Center_Lon;
+    //     // Iterate over the 'children' array and perform operations on each element.
+    //     scenes.forEach(function (child, index) {
+    //       // 'child' represents each element in the 'children' array.
+    //       // Here you can perform operations on each child, if needed.
+    //       var ud = child.userData;
+    //       var Center_Lat = ud.Center_Lat;
+    //       var Center_Lon = ud.Center_Lon;
 
-          var tempDistance = Math.sqrt((Center_Lat - latitude) ** 2 + (Center_Lon - longitude) ** 2);
-          if (tempDistance < closestDistance) {
-            closestDistance = tempDistance;
-            closestLatitude = Center_Lat;
-            closestLongitude = Center_Lon;
-            description = ud;
-          }
+    //       var tempDistance = Math.sqrt((Center_Lat - latitude) ** 2 + (Center_Lon - longitude) ** 2);
+    //       if (tempDistance < closestDistance) {
+    //         closestDistance = tempDistance;
+    //         closestLatitude = Center_Lat;
+    //         closestLongitude = Center_Lon;
+    //         description = ud;
+    //       }
 
-        });
+    //     });
 
-        var popup = new mapboxgl.Popup({
-          maxWidth: "350px", // Set your desired maximum width here
-        });
+    //     var popup = new mapboxgl.Popup({
+    //       maxWidth: "350px", // Set your desired maximum width here
+    //     });
 
-        // var popupContent = document.createElement('div');
-        // popupContent.style.maxHeight = "200px"; // Set your desired maximum height here
-        // popupContent.style.overflowY = "auto"; // Add vertical scrollbar when content overflows
-        console.log(description);
-        // popupContent.innerHTML = JSON.stringify(description);
+    //     // var popupContent = document.createElement('div');
+    //     // popupContent.style.maxHeight = "200px"; // Set your desired maximum height here
+    //     // popupContent.style.overflowY = "auto"; // Add vertical scrollbar when content overflows
+    //     console.log(description);
+    //     // popupContent.innerHTML = JSON.stringify(description);
         
-        const popupContent = `<p>Building Name: <b>${description['Name']}</b></p>\
-          <p>Building ID: <b>${description['Building_I']}</b></p>\
-          <p>Ground Elevation (ft): <b>${description['Ground_Ele'].toFixed(2)}</b></p>\
-          <p>Max. Elevation (ft): <b>${description['Max_Elev_F'].toFixed(2)}</b></p>\
-          <p>Min. Elevation (ft): <b>${description['Min_Elev_F'].toFixed(2)}</b></p>\
-          <p>Height (ft): <b>${description['Height_Ft'].toFixed(2)}</b></p>`;
+    //     const popupContent = `<p>Building Name: <b>${description['Name']}</b></p>\
+    //       <p>Building ID: <b>${description['Building_I']}</b></p>\
+    //       <p>Ground Elevation (ft): <b>${description['Ground_Ele'].toFixed(2)}</b></p>\
+    //       <p>Max. Elevation (ft): <b>${description['Max_Elev_F'].toFixed(2)}</b></p>\
+    //       <p>Min. Elevation (ft): <b>${description['Min_Elev_F'].toFixed(2)}</b></p>\
+    //       <p>Height (ft): <b>${description['Height_Ft'].toFixed(2)}</b></p>`;
         
-        popup.setHTML(popupContent);
+    //     popup.setHTML(popupContent);
 
 
-        // popup.setDOMContent(popupContent);
-        popup.setLngLat(coordinates).addTo(map);
+    //     // popup.setDOMContent(popupContent);
+    //     popup.setLngLat(coordinates).addTo(map);
 
-      });
+    //   });
 
-    });
-    map.on('moveend', () => {
-      const ctr = map.getCenter();
-      const zm = map.getZoom();
-      const ptc = map.getPitch();
+    // });
+    // map.on('moveend', () => {
+    //   const ctr = map.getCenter();
+    //   const zm = map.getZoom();
+    //   const ptc = map.getPitch();
 
-      const box = document.getElementById('map-angle');
-      box.innerHTML = `Center: ${ctr} | Zoom: ${zm} | Pitch: ${ptc}`;
-    });
+    //   const box = document.getElementById('map-angle');
+    //   box.innerHTML = `Center: ${ctr} | Zoom: ${zm} | Pitch: ${ptc}`;
+    // });
   </script>
 </body>
 
