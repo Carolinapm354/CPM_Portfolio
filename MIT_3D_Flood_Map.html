@@ -43,6 +43,47 @@
             color: #000; /* Black text color */
             font-weight: bold;
         }
+
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            background-color: #fff; /* White background */
+            color: #333; /* Dark gray text color */
+            font-family: Helvetica, Arial, sans-serif;
+            overflow-x: hidden; /* Hide horizontal scrollbar */
+            margin: 0; /* Remove default margin */
+        }
+
+        p {
+            margin-bottom: 20px;
+            margin-left: 50px;
+            margin-right: 50px;
+            text-align: justify;
+        }
+
+        ul {
+            list-style: disc;
+            margin-right: 50px;
+            padding-left: 100px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: justify;
+            margin: 20px 50px; /* Add 20px top and bottom margin, and 50px left and right margin */
+        }
+
+        h2 {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: justify;
+            margin: 20px 50px; /* Add 20px top and bottom margin, and 50px left and right margin */
+        }
+
         
         #preview-box {
     width: 1500px; /* Adjust the width as needed */
@@ -68,7 +109,41 @@
  circle:hover {
     opacity: 0.5; /* Change the opacity on hover */
   }
-   
+
+  #modal-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+    overflow-y: auto; /* Enable vertical scrolling for the modal container */
+}
+
+#image-modal {
+    /* background: #fff;
+    fill-opacity:0; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; 
+    padding: 20px;
+    margin-top: 8%;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+.scaled-image {
+    width: 50%;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
 
 
     </style>
@@ -86,8 +161,22 @@
             </ul>
         </nav>
     </header>
-    
+    <h1>MIT's Communicating Flood Risk through Interactive Data Visualizations</h1>
+    <h2>MIT SUMMER RESEARCH PROGRAM 
+        URBAN RISK LAB
+        SUPERVISED BY DR. MIHO MAZAREEUW AND RESEARCH SCIENTIST LARISA OVALLES
+        (SUMMER 2023)</h2>
+    <p>Effective flood risk communication is crucial for promoting resilience and informed decision-making in flood-prone areas. However, existing flood maps often lack accuracy and clarity, hindering their effectiveness. To overcome these challenges, we aim to create an interactive three-dimensional flood map of the MIT campus using advanced geospatial technologies and Mapbox GL JS, a powerful JavaScript library for web maps. By presenting flood hazards in a realistic and immersive manner, we strive to reduce scientific uncertainty in flood hazard assessment. The interactive flood map will enable stakeholders to better comprehend the true extent of flood risk, empowering them to make well-informed decisions and implement proactive measures for flood mitigation. Our research holds broader implications for architectural data visualization strategies and flood risk management. We seek to foster better understanding, engagement, and proactive approaches for flood risk communication. By providing a user-friendly experience, our work will empower diverse audiences to respond effectively to flood risks.  Throughout the project, we worked on challenges in transforming 2D data into three-dimensional GIS data and selecting appropriate visualization techniques. However, we remained committed to enhancing the accuracy, visual representation, and accessibility of flood risk tto revolutionize flood risk communication through innovative data visualization solutions. By developing an interactive 3D flood map of the MIT campus, we hope to advance flood risk management and contribute valuable insights to the broader community.</p>    
 
+    <div class="CONCEPTCFRTIDV">
+        <img src="Assets\CONCEPTCFRTIDV.jpg" alt="Image" style="width: 1500px; height: auto;">
+    </div>
+
+    <div class="GRAFICAS_OBJECTIVES">
+        <img src="Assets/GRAFICAS_OBJECTIVES.jpg" alt="Image" style="width: 1500px; height: auto;">
+    </div>
+
+   
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1243.91 556.85">
 
     <defs>
@@ -177,28 +266,26 @@
         </filter>
     </defs>
     <g isolation="isolate">
-        <a href="https://storymaps.arcgis.com/stories/4651e6d46efd4b1b9f36cef0b7e6abf6" target="_blank"> <!-- Replace with your link for stage1 -->
         <g id="stage1">
-            <rect x="67.4" y="101.87" width="100.6" height="406.47" fill="#f8d24e" opacity=".2" />
+            <rect x="67.4" y="101.87" width="100.6" height="406.47" fill="#f8d24e" opacity="0.2" onclick="openModal('stage1')" />
         </g>
-        </a>
         <g id="stage2">
-            <rect x="173.49" y="99.14" width="113.74" height="409.2" fill="#e7d446" opacity=".2" />
+            <rect x="173.49" y="99.14" width="113.74" height="409.2" fill="#e7d446" opacity=".2"  onclick="openModal('stage2')"/>
         </g>
         <g id="stage3">
-            <rect x="292.6" y="99.14" width="138.26" height="409.2" fill="#d6d63f" opacity=".2" />
+            <rect x="292.6" y="99.14" width="138.26" height="409.2" fill="#d6d63f" opacity=".2"  onclick="openModal('stage3')"/>
         </g>
         <g id="stage4">
-            <rect x="437.11" y="92.68" width="223.91" height="415.66" fill="#c3d83a" opacity=".2" />
+            <rect x="437.11" y="92.68" width="223.91" height="415.66" fill="#c3d83a" opacity=".2" onclick="openModal('stage4')"/>
         </g>
         <g id="stage5">
-            <rect x="667.4" y="92.68" width="180.77" height="415.66" fill="#849a68" opacity=".2" />
+            <rect x="667.4" y="92.68" width="180.77" height="415.66" fill="#849a68" opacity=".2" onclick="openModal('stage5')"/>
         </g>
         <g id="stage6">
-            <rect x="853.28" y="92.68" width="195.7" height="415.66" fill="#506e78" opacity=".2" />
+            <rect x="853.28" y="92.68" width="195.7" height="415.66" fill="#506e78" opacity=".2" onclick="openModal('stage6')"/>
         </g>
         <g id="stage7">
-            <rect  x="1053.96" y="92.68" width="132.51" height="415.66" fill="#11497e" opacity=".2" />
+            <rect  x="1053.96" y="92.68" width="132.51" height="415.66" fill="#11497e" opacity=".2" onclick="openModal('stage7')"/>
         </g>
         <g id="extra">
             <rect x="58.21" y="377.62" width="1130.55" height="129.7" fill="#fff" opacity=".58" />
@@ -961,28 +1048,84 @@
         </g>
     </g>
 </svg>
+<p style="font-size: 12px;"><b>Note:</b> Please interact with Methodology graph. It was made on Ilustrator and it was made interactive by altering an SVG file using JavaScript.</p>
 
- <div id="preview-box">
-        <iframe src="https://carolinapm354.github.io/MIT_3D_Flood_Map/" width="100%" height="100%" frameborder="0"></iframe>
+
+<div id="modal-container" style="display: none;">
+    <div id="image-modal">
+        <img id="stage1-image" src="Assets\STAGES\STAGE-01.jpg" alt="Image"  style="width: 50%; height: auto;">
+        <img id="stage2-image" src="Assets\STAGES\STAGE-02.jpg"  alt="Image" style="width: 50%; height: auto;">
+        <img id="stage3-image" src="Assets\STAGES\STAGE-03.jpg"  alt="Image" style="width: 50%; height: auto;">
+        <img id="stage4-image" src="Assets\STAGES\STAGE-04.jpg" alt="Image"  style="width: 50%; height: auto;">
+        <img id="stage5-image" src="Assets\STAGES\STAGE-05.jpg"  alt="Image" style="width: 50%; height: auto;">
+        <img id="stage6-image" src="Assets\STAGES\STAGE-06.jpg"  alt="Image" style="width: 50%; height: auto;">
+        <img id="stage7-image" src="Assets\STAGES\STAGE-07.jpg"  alt="Image" style="width: 50%; height: auto;">
+    </div>>
     </div>
+
+    <div class="GRAFICAS_TIMELINELEGEND">
+        <img src="Assets\GRAFICAS_Graficas.jpg" alt="Image" style="width: 1550px; height: auto; float: center; margin-right: 1px; margin-left: -6px;">
+    </div>
+
+    <h2>Preview of the interactive 3D flood Map</h2>
+
+<div id="preview-box">
+    <iframe src="https://carolinapm354.github.io/MIT_3D_Flood_Map/" width="100%" height="100%" frameborder="0"></iframe>
+</div>
+
+<p style="font-size: 12px;"><b>Note:</b> Please wait for the frame to load completely; it might take a couple of seconds. :)</p>
+
+
+
+
+<div class="GRAFICAS_KEYFLOOD">
+    <img src="Assets\GRAFICAS_KEYFLOOD.jpg" alt="Image" style="width: 1000px; height: auto; text-align: right;margin-left: 300px;">
+</div>
+
+<br></br>
+
+
+<h2>Independent Part of Research</h2>
+<p>After a rewarding summer at MIT, I found myself eager to carry on with the project independently. My goal was to explore the potential of creating interactive emergency escape routes. It's safe to say that it remains an ongoing work and has evolved into a side project that currently holds my dedication.  </p>  
+ 
+<p><b>Main Idea:</b></p>
+<p>In a potential future scenario, amidst a flooding emergency, individuals will find themselves uncertain about where to seek safety and which areas are vulnerable to flooding. In this future, this tool can offer an indispensable solution. <b>Instead of navigating the campus aimlessly and facing uncertainty</b>, this <b>real-time website</b> can <b>provide immediate access to precise guidance</b> on reaching secure locations.
+
+    Cutting-edge technology will seamlessly integrate the latest flood data, emergency response strategies, and campus layout to offer tailored <b>escape routes</b>. Whether one is a student, faculty member, or visitor, the system will be designed to ensure that everyone can swiftly and safely navigate to designated secure locations, minimizing risk and ambiguity during emergencies.
+    
+    By making informed decisions through a user-friendly interface, individuals will take control of their safety. The commitment is not only to enhance understanding of future emergency situations but also to empower everyone with the knowledge required to protect themselves and those around them. The vision is to create a safer, more resilient community by harnessing the potential of technology for the benefit of all. </p>    
+   
+ <p><b>Mock up</b></p>
+
+ <body>
+    <h1>Preview of Another HTML File</h1>
+    <iframe src="MAPA\escaperoute.html" width="800" height="600"></iframe>
+</body>
+
 </body>
 <script>
-      const stages = document.querySelectorAll("g");
 
-stages.forEach((stage, index) => {
-  const rect = stage.querySelector("rect");
+function openModal(stageId) {
+    const modalContainer = document.getElementById("modal-container");
 
-  // Add a click event listener to navigate to the corresponding link
-  rect.addEventListener("click", function() {
-    const links = [
-      "https://link1.com", // Link for stage1
-      "https://link2.com", // Link for stage2
-      // Add links for other stages here
-    ];
+    // Hide all stage images by default
+    for (let i = 1; i <= 7; i++) {
+        const image = document.getElementById(`stage${i}-image`);
+        image.style.display = "none";
+    }
 
-    window.location.href = links[index];
-  });
+    const image = document.getElementById(`${stageId}-image`);
+    image.style.display = "block";
+
+    modalContainer.style.display = "block";
+}
+
+document.getElementById("modal-container").addEventListener("click", function() {
+    this.style.display = "none";
 });
+
+
+
 </script>
 
 </html>
